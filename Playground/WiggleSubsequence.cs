@@ -8,7 +8,7 @@ namespace Playground
 {
     public class WiggleSubsequence
     {
-        public int wiggleMaxLength(int[] nums)
+        public int WiggleMaxLength(int[] nums)
         {
             if (nums.Length < 2)
                 return nums.Length;

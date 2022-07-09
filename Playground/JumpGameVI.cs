@@ -32,38 +32,49 @@ namespace Playground
 
 
             var dp = new int[nums.Length];
-            var queue = new Queue<int>(k);
-
+            var queue = new PriorityQueue<int, int >(k, new Comparer());
+            
             // Initialize 
             dp[0] = nums[0];
-            queue.Enqueue(dp[0]);
-            var prevMaxScore = dp[0];
+            queue.Enqueue(0 ,dp[0]);
             for (int i = 1; i < k; i++)
             {
-
-                dp[i] = prevMaxScore + nums[i];
-                if (dp[i] > prevMaxScore)
-                {
-                    prevMaxScore = dp[i];
-                }
-                queue.Enqueue(dp[i]);
+                queue.TryPeek(out var index, out var prior);
+                dp[i] = prior+ nums[i];
+                queue.Enqueue(i, dp[i]);
             }
             for (int i = k; i < nums.Length; i++)
             {
-
-                dp[i] = prevMaxScore+ nums[i];
-                var remove = queue.Dequeue();
-                queue.Enqueue(dp[i]);
-                if (remove == prevMaxScore)
+                queue.TryPeek(out var index, out var prior);
+                while (index< i - k)
                 {
-                    prevMaxScore = queue.Max();
+                    queue.Dequeue();
+                    queue.TryPeek(out index, out prior);
                 }
-                if (dp[i] > prevMaxScore)
-                {
-                    prevMaxScore = dp[i];
-                }
+                dp[i] = prior + nums[i];
+                queue.Enqueue(i, dp[i]);
             }
             return dp[nums.Length - 1];
+        }
+
+        public class Comparer : IComparer<int>
+        {
+            public int Compare(int x, int y)
+            {
+                // y is larger, return y is the one we want
+                if (x < y)
+                {
+                    return 1;
+                }
+                else if (x == y)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Playground;
 
-var q = new SortedList<int, int>();
-q.Add(3, 5);
-q.Add(1, 300000);
-q.Add(22, 3);
-// 用前面排, 前面是Key
-Console.WriteLine(q.ElementAt(0));
+var q = new ConstructBinaryTreefromPreorderandInorderTraversal();
+var payload = new int[]  { 3, 9, 20, 15, 7 };
+var payload2 = new int[]  { 9, 3, 15, 20, 7 };
+q.BuildTree(payload, payload2);

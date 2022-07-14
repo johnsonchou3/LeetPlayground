@@ -61,7 +61,7 @@ namespace Playground
         {
             public int Compare(int x, int y)
             {
-                // y is larger, return y is the one we want
+                // y is larger, put it ahead
                 if (x < y)
                 {
                     return 1;

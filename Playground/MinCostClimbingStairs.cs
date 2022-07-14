@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Playground
 {
-    public class MinCostClimbingStairs
+    public class LeetMinCostClimbingStairs
     {
         public int MinCostClimbingStairs(int[] cost)
         {

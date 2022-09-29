@@ -1,4 +1,6 @@
-﻿namespace Playground;
+﻿using System.Data.SqlClient;
+
+namespace Playground;
 
 public class RemoveNodeFromEndOfList
 {

@@ -6,18 +6,23 @@ public class FindKClosestElements
     // 1 2 3 4 5
     public IList<int> FindClosestElements(int[] arr, int k, int x)
     {
+        if(k >= arr.Length)
+        {
+            return arr;
+        }
         var result = new List<int>();
         var left = 0;
-        var right = k - 1;
-        while (arr[right] < x && right < arr.Length)
+        var right = k;
+        while ( right < arr.Length && arr[right] < x)
         {
             left++;
             right++;
         }
 
-        while (left <= right)
+        while (left < arr.Length && left <= right)
         {
             result.Add(arr[left]);
+            left ++;
         }
 
         for (int i = 0; i < k; i++)
@@ -29,26 +34,44 @@ public class FindKClosestElements
             }
             result.Add(arr[right]);
         }
-        return result.Sort()
+        Console.WriteLine(result.Count());
+        var comp = new ClosestElementComparer(x);
+        result.Sort(comp);
+        return result.Take(k).OrderBy(x => x).ToList();
     }
 }
 
 public class ClosestElementComparer : IComparer<int>
 {
+    private readonly int Num;
+    public ClosestElementComparer(int num)
+    {
+        Num = num;
+    }
     public int Compare(int x, int y)
     {
         
-        if (x == y)
+        if (Math.Abs(Num - x) == Math.Abs(Num - y))
         {
             if (x < y)
             {
-                return x;
+                return -1;
             }
             else
             {
-                return y;
+                return 1;
             }
         }
-    throw new NotImplementedException();
+        else
+        {
+            if (Math.Abs(Num - x) < Math.Abs(Num - y))
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+        }
     }
 }

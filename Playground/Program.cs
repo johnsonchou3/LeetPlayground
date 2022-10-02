@@ -2,6 +2,6 @@
 using Playground;
 using System.Net.Http.Json;
 
-var test = new FindKClosestElements();
-test.FindClosestElements(new[] { 3,5,8,10 }, 2, 15);
-
+var test = new Number_of_Dice_Rolls_With_Target_Sum();
+test.NumRollsToTarget(30, 30, 500);
+test.NumRollsToTarget2(30, 30, 500);

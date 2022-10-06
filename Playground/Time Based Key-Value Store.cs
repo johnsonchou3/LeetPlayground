@@ -2,39 +2,54 @@
 
 public class TimeMap
 {
-    private Dictionary<string, Dictionary<int, string>> Dict = new Dictionary<string, Dictionary<int, string>>();
-    public TimeMap() {
+    private readonly IDictionary<string, IList<(int, string)>> keyTimeDict;
         
+    public TimeMap() 
+    {
+        keyTimeDict = new Dictionary<string, IList<(int, string)>>();
     }
     
     public void Set(string key, string value, int timestamp)
     {
-        if (Dict.TryGetValue(key, out var timestampDict))
+        if (!keyTimeDict.ContainsKey(key))
         {
-            if (timestampDict.TryGetValue(timestamp, out var val))
-            {
-                timestampDict[timestamp] = value;
-            }
-            else
-            {
-                timestampDict.Add(timestamp, value);
-            }
+            keyTimeDict[key] = new List<(int, string)>();
         }
-        else
-        {
-            Dict.Add(key, new Dictionary<int, string>());
-            Dict[key].Add(timestamp, value);
-        }
+        
+        keyTimeDict[key].Add((timestamp, value));
     }
     
-    public string Get(string key, int timestamp) {
-        if (Dict.TryGetValue(key, out var t) && t.TryGetValue(timestamp, out var val))
-        {
-            return val;
-        }
-        else
+    public string Get(string key, int timestamp)
+    {
+        
+        if (!keyTimeDict.ContainsKey(key))
         {
             return "";
         }
+        
+        var values = keyTimeDict[key];
+        
+        int left = 0, right = values.Count - 1;
+        
+        while (left + 1 < right)
+        {
+            int mid = left + (right - left) / 2;
+            if (values[mid].Item1 < timestamp)
+            {
+                left = mid;
+            }
+            else
+            {
+                right = mid;
+            }
+        }
+        
+        
+        if (values[left].Item1 > timestamp)
+        {
+            return "";
+        }
+        
+        return values[right].Item1 <= timestamp ? values[right].Item2 : values[left].Item2;
     }
 }

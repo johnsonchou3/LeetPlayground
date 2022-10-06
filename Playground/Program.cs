@@ -3,5 +3,5 @@ using Playground;
 using System.Net.Http.Json;
 using System.Net.Security;
 
-var x = new Product_of_Array_Except_Self();
-x.ProductExceptSelf(new []{1, 2, 3, 4});
+var x = new Binary_Search();
+x.Search(new []{-1,0,3,5,9,12}, 2);

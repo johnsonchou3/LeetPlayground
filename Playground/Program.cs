@@ -3,5 +3,7 @@ using Playground;
 using System.Net.Http.Json;
 using System.Net.Security;
 
-var x = new Binary_Search();
-x.Search(new []{-1,0,3,5,9,12}, 2);
+var s = new HashSet<int>();
+s.Add(1);
+s.Add(1);
+s.Add(1);

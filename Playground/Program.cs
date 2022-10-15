@@ -3,7 +3,5 @@ using Playground;
 using System.Net.Http.Json;
 using System.Net.Security;
 
-var s = new HashSet<int>();
-s.Add(1);
-s.Add(1);
-s.Add(1);
+var x = new StringCompressionII();
+Console.WriteLine(x.GetLengthOfOptimalCompressionOptimal("bbbcbbccaaacabacccaccbabcaacab", 15));
